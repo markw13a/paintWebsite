@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<input type="submit" id="refresh" value="Refresh Canvas"></input>
+		<script>
+			refresh.addEventListener("click", clearCanvas);
+			
+			//Deletes the current canvas and replaces it with a new one
+			function clearCanvas(){
+				//Deleting any existing canvases
+				var existingCanvases = document.querySelectorAll(".canvasContainer");
+
+				if(existingCanvases!=null){
+					//Should only ever be one, but we'll use a loop to be on the safe side.
+					for(let i=0; i<existingCanvases.length; i++){
+						let currentCanvas = existingCanvases[i];
+						currentCanvas.parentNode.removeChild(currentCanvas);
+					}
+				}
+				createCanvas();
+			}
+			
+			//Fills the page-area (at time of button press) with 16x16px squares
+			function createCanvas(){
+				let canvasHeight = 800;
+				let canvasWidth = 800;
+				let numberOfDivs = (canvasHeight/16) * (canvasWidth/16);
+				var currentColour = "rgba(0, 0, 0, 0.5)";
+				
+				//Feel that it's better to create node and append divs to it here.
+				//Worried that browser will want to redraw page for every div if we add to a live element
+				let canvasContainer = document.createElement("div");
+				canvasContainer.setAttribute("class", "canvasContainer");
+				
+				for(let i=0;i<numberOfDivs;i++){
+					let newDiv = document.createElement("div");
+					newDiv.setAttribute("class", "squares");
+					newDiv.onmouseover = function(){newDiv.setAttribute("style",`background-color: ${currentColour};`)};
+					canvasContainer.appendChild(newDiv);
+				}
+				document.querySelector("body").appendChild(canvasContainer);
+			}
+			
+		</script>
+	</body>
+
+</html>

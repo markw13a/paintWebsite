@@ -1,0 +1,17 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.squares{
+	margin-top:0; padding: 0;
+	height: 16px; 
+	width: 16px;
+	float: left;
+}
+
+.canvasContainer{
+	height: 800px;
+	width: 800px;
+	border: 1px solid black;
+}
