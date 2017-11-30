@@ -1,5 +1,6 @@
 var canvasHeight = 800;
 var canvasWidth = 800;
+var currentColour = "rgba(0, 0, 0, 0.5)";
 
 var refreshListener = refresh.addEventListener("click", clearCanvas);
 var enablePaintListener = window.addEventListener("mousedown", removeCanvasOverlay);
@@ -45,12 +46,12 @@ function clearCanvas(){
 	}
 	createCanvas();
 	addCanvasOverlay();
+	createPaintMenu();
 }
 
 //Fills the page-area (at time of button press) with 16x16px squares
 function createCanvas(){
 	let numberOfDivs = (canvasHeight/16) * (canvasWidth/16);
-	var currentColour = "rgba(0, 0, 0, 0.5)";
 	
 	//Feel that it's better to create node and append divs to it here.
 	//Worried that browser will want to redraw page for every div if we add to a live element
@@ -65,3 +66,38 @@ function createCanvas(){
 	}
 	document.querySelector("body").appendChild(canvasContainer);
 }
+
+//Functions for paint menu items (just colour selection for now)
+
+//Builds the paint menu and adds below canvas
+function createPaintMenu(){
+	let paintMenu;
+	let colourContainer;
+	
+	//main container div
+	paintMenu = document.createElement("div");
+	paintMenu.setAttribute("class", "paintMenu");
+	
+	//div for containing paint colours
+	colourContainer = document.createElement("div");
+	colourContainer.setAttribute("class", "colourDiv");
+	createColourRadio("red", colourContainer);
+	createColourRadio("blue", colourContainer);
+	
+	paintMenu.appendChild(colourContainer);
+	
+	document.querySelector(".canvasContainer").appendChild(paintMenu);
+}
+
+function createColourRadio(colour, node){
+	let colourRadio = document.createElement("input");
+	
+	colourRadio.setAttribute("type", "radio");
+	colourRadio.setAttribute("class", "colourRadio");
+	colourRadio.setAttribute("style", `background-color: ${colour};`);
+	colourRadio.setAttribute("name", "colour");
+	colourRadio.onclick = function(){currentColour = `${colour}`;};
+	
+	node.appendChild(colourRadio);
+}
+
