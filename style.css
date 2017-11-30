@@ -3,6 +3,10 @@
 	padding: 0;
 }
 
+body{
+	border: 1px dotted black;
+}
+
 .squares{
 	margin-top:0; padding: 0;
 	height: 16px; 
@@ -11,17 +15,30 @@
 }
 
 .canvasContainer{
-	height: 1000px;
-	width: 800px;
+	position: relative;
+	display: inline-block;
+	height: 800px;
+	width: 800px;/*Needs to be wide enough to contain canvas + paint menu*/
 	border: 1px solid black;
 }
 
 .paintMenu{
-	bottom: 0;
+	display:inline-block;
+	position: absolute;
+	border: 1px dotted black;
 }
 
-.paintMenu .colourRadio{
-	height: 15px;
-	width: 15px;
-	float: left;
+label{
+	display: block;
+	height: 30px;
+	width: 30px;
+	margin: 4px;
+}
+
+label:hover{
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.85);
+}
+
+input[type=radio] {
+	display: none;
 }

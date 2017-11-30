@@ -1,6 +1,7 @@
 var canvasHeight = 800;
 var canvasWidth = 800;
-var currentColour = "rgba(0, 0, 0, 0.5)";
+var currentColour = "#000";
+var colourIconSize = 30;//Size of colour icons used in the paint menu
 
 var refreshListener = refresh.addEventListener("click", clearCanvas);
 var enablePaintListener = window.addEventListener("mousedown", removeCanvasOverlay);
@@ -77,27 +78,36 @@ function createPaintMenu(){
 	//main container div
 	paintMenu = document.createElement("div");
 	paintMenu.setAttribute("class", "paintMenu");
+	paintMenu.setAttribute("style", `max-width: ${colourIconSize + 10}px;`);
 	
 	//div for containing paint colours
 	colourContainer = document.createElement("div");
 	colourContainer.setAttribute("class", "colourDiv");
-	createColourRadio("red", colourContainer);
-	createColourRadio("blue", colourContainer);
-	
+	createColourRadio("#000", colourContainer);//Black
+	createColourRadio("#C40233", colourContainer);//Red
+	createColourRadio("#0087BD", colourContainer);//Blue
+	createColourRadio("#FFD300", colourContainer);//Yellow
+	createColourRadio("#009F6B", colourContainer);//Green
+	createColourRadio("#FFFFFF", colourContainer);//White
 	paintMenu.appendChild(colourContainer);
 	
-	document.querySelector(".canvasContainer").appendChild(paintMenu);
+	document.querySelector("body").appendChild(paintMenu);
 }
 
 function createColourRadio(colour, node){
+	//Need to wrap input element in a label element.
+	//Want to use custom radio button icons. Only way I can find to this is to hide the default radio button, and style the label to act as a replacement.
 	let colourRadio = document.createElement("input");
+	let radioLabel = document.createElement("label");
 	
 	colourRadio.setAttribute("type", "radio");
 	colourRadio.setAttribute("class", "colourRadio");
-	colourRadio.setAttribute("style", `background-color: ${colour};`);
 	colourRadio.setAttribute("name", "colour");
 	colourRadio.onclick = function(){currentColour = `${colour}`;};
 	
-	node.appendChild(colourRadio);
+	radioLabel.setAttribute("style", `background-color: ${colour};`);
+	
+	radioLabel.appendChild(colourRadio);
+	node.appendChild(radioLabel);
 }
 
