@@ -45,9 +45,10 @@ function clearCanvas(){
 			currentCanvas.parentNode.removeChild(currentCanvas);
 		}
 	}
+	
+	createPaintMenu();
 	createCanvas();
 	addCanvasOverlay();
-	createPaintMenu();
 }
 
 //Fills the page-area (at time of button press) with 16x16px squares
@@ -74,24 +75,27 @@ function createCanvas(){
 function createPaintMenu(){
 	let paintMenu;
 	let colourContainer;
+	let existingMenu = document.querySelector(".paintMenu");
 	
-	//main container div
-	paintMenu = document.createElement("div");
-	paintMenu.setAttribute("class", "paintMenu");
-	paintMenu.setAttribute("style", `max-width: ${colourIconSize + 10}px;`);
-	
-	//div for containing paint colours
-	colourContainer = document.createElement("div");
-	colourContainer.setAttribute("class", "colourDiv");
-	createColourRadio("#000", colourContainer);//Black
-	createColourRadio("#C40233", colourContainer);//Red
-	createColourRadio("#0087BD", colourContainer);//Blue
-	createColourRadio("#FFD300", colourContainer);//Yellow
-	createColourRadio("#009F6B", colourContainer);//Green
-	createColourRadio("#FFFFFF", colourContainer);//White
-	paintMenu.appendChild(colourContainer);
-	
-	document.querySelector("body").appendChild(paintMenu);
+	if (!existingMenu) {
+		//main container div
+		paintMenu = document.createElement("div");
+		paintMenu.setAttribute("class", "paintMenu");
+		paintMenu.setAttribute("style", `max-width: ${colourIconSize + 10}px;`);
+		
+		//div for containing paint colours
+		colourContainer = document.createElement("div");
+		colourContainer.setAttribute("class", "colourDiv");
+		createColourRadio("#000", colourContainer);//Black
+		createColourRadio("#C40233", colourContainer);//Red
+		createColourRadio("#0087BD", colourContainer);//Blue
+		createColourRadio("#FFD300", colourContainer);//Yellow
+		createColourRadio("#009F6B", colourContainer);//Green
+		createColourRadio("#FFFFFF", colourContainer);//White
+		paintMenu.appendChild(colourContainer);
+		
+		document.querySelector("body").appendChild(paintMenu);
+	}
 }
 
 function createColourRadio(colour, node){
